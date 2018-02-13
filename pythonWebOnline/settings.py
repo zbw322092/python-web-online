@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'formtools',
-    'reversion'
+    'reversion',
+    'captcha'
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
@@ -142,3 +143,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [(
     os.path.join(BASE_DIR, 'static')
 )]
+
+EMAIL_HOST = "smtp-mail.outlook.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "youreamil@example.com"
+EMAIL_HOST_PASSWORD = "yourpassword."
+EMAIL_USE_TLS = True
+EMAIL_FROM = "youreamil@example.com"
