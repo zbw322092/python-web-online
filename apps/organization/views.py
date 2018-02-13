@@ -6,9 +6,11 @@ from django.views.generic import View
 from django.http import JsonResponse
 from django.core import serializers
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-
+from django.http import HttpResponse
+from django.middleware.csrf import get_token
 
 from .models import CourseOrg, CityDict
+from .forms import UserAskForm
 
 # Create your views here.
 
@@ -55,3 +57,19 @@ class OrgView(View):
             'hot_orgs': serializers.serialize('json', hot_orgs)
         }
         return JsonResponse(data)
+
+
+class AddUserAskView(View):
+    def post(self, request):
+        userask_form = UserAskForm(request.POST)
+        if userask_form.is_valid():
+            user_ask = userask_form.save(commit=True)
+            return HttpResponse("{'status': 'success'}", content_type='application/json')
+        else:
+            return HttpResponse("{'status': 'fail', 'msg': '添加出错'}", content_type='application/json')
+
+
+class CSRFGeneratorView(View):
+    def get(self, request):
+        csrf_token = get_token(request)
+        return HttpResponse(csrf_token)

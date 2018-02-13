@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """pythonWebOnline URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -24,7 +25,6 @@ from xadmin.plugins import xversion
 xversion.register_models()
 
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
-from organization.views import OrgView
 from pythonWebOnline.settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -39,6 +39,8 @@ urlpatterns = [
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
 
-    url(r'^org_list/$', OrgView.as_view(), name="org_list"),
+    # 课程机构url配置
+    url(r'^org/', include('organization.urls', namespace='org')),
+
     url(r'^media/(?P<path>.*)/$', serve, { "document_root": MEDIA_ROOT })
 ]
