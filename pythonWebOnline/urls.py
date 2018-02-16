@@ -45,5 +45,9 @@ urlpatterns = [
     # 课程相关url
     url(r'^course/', include('courses.urls', namespace='course')),
 
-    url(r'^media/(?P<path>.*)/$', serve, { "document_root": MEDIA_ROOT })
+    url(r'^media/(?P<path>.*)/$', serve, { "document_root": MEDIA_ROOT }),
+
+    # url(r'^static/(?P<path>.*)/$', serve, { "document_root": STATIC_ROOT })
 ]
+
+handler404 = "users.views.page_not_found"
